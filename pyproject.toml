@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=80.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mididoctor"
+version = "25.6.30"
+description = "Stand-alone, comprehensive and easy-to-use MIDI check and repair Python package"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [
+  { name = "Alex Lev", email = "alexlev61@proton.me" }
+]
+maintainers = [
+  { name = "Alex Lev", email = "alexlev61@proton.me" }
+]
+keywords = ["MIDI", "Doctor", "Repair MIDI", "Fix MIDI", "MIDI repair", "MIDI checker"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Science/Research",
+  "Topic :: Multimedia :: Sound/Audio :: MIDI",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3.6",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12"
+]
+requires-python = ">=3.6"
+
+[project.readme]
+file = "mididoctor/README.md"
+content-type = "text/markdown"
+
+[project.urls]
+Homepage = "https://github.com/asigalov61/mididoctor"
+Documentation = "https://github.com/asigalov61/mididoctor"
+Issues = "https://github.com/asigalov61/mididoctor/issues"
+Discussions = "https://github.com/asigalov61/mididoctor/discussions"

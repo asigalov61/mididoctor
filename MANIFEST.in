@@ -1,0 +1,2 @@
+include mididoctor/README.md
+recursive-include mididoctor/ *
