@@ -5,6 +5,22 @@
 
 ***
 
+## With just one line of code, MIDI Doctor will check and heal
+
+* MIDI signature
+* MIDI channels range
+* MIDI pitches range
+* MIDI velocities range
+* MIDI patch changes range
+* Duplicate pitches
+* Excessively short durations
+* Excessively long durations
+* Overlapping durations
+* Text events consistency
+* Excessively quiet dynamics
+
+***
+
 ## Install
 
 ```sh
