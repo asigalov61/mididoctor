@@ -17,6 +17,7 @@
 * Excessively long durations
 * Overlapping durations
 * Text events consistency
+* Excessively quiet dynamics
 
 ***
 
