@@ -13,7 +13,7 @@ pip install mididoctor
 
 ***
 
-## Basic use xample
+## Basic use example
 
 ```python
 import mididoctor
