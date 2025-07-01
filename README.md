@@ -5,5 +5,23 @@
 
 ***
 
+## Install
+
+```sh
+pip install mididoctor
+```
+
+***
+
+## Basic use xample
+
+```python
+import mididoctor
+
+mididoctor.heal_midi('Come To My Window.mid')
+```
+
+***
+
 ### Project Los Angeles
 ### Tegridy Code 2025
