@@ -13,10 +13,11 @@
 * MIDI velocities range
 * MIDI patch changes range
 * Duplicate pitches
+* Bad chords
 * Excessively short durations
 * Excessively long durations
 * Overlapping durations
-* Text events consistency
+* Text events inconsistencies
 * Excessively quiet dynamics
 
 ***
