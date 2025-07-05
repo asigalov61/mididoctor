@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mididoctor"
-version = "25.7.2"
+version = "25.7.7"
 description = "Stand-alone, comprehensive and easy-to-use MIDI check and repair Python package"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
