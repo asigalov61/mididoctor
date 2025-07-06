@@ -34,7 +34,7 @@ r'''############################################################################
 
 ###################################################################################
 
-__version__ = "25.7.15"
+__version__ = "25.7.16"
 
 print('=' * 70)
 print('MIDI Doctor')
@@ -543,7 +543,6 @@ def adjust_notes_velocities(notes,
         
 def repair_flat_dynamics(notes, 
                          adjustment_threshold=0.95, 
-                         adj_vels_range=32, 
                          return_adj_vels_count=False
                         ):
 
@@ -557,18 +556,26 @@ def repair_flat_dynamics(notes,
 
         chan_group = copy.deepcopy(list(chan_group))
 
+        chan_ptcs = [e[4] for e in chan_group]
+
         chan_vels = [e[5] for e in chan_group]
 
         chan_vels_counts = Counter(chan_vels).most_common()
 
         if chan_vels_counts[0][1] / len(chan_vels) > adjustment_threshold:
-            avg_chan_vel = round(sum(chan_vels) / len(chan_vels))
+            avg_chan_ptc = round(sum(chan_ptcs) / len(chan_ptcs))
+
+            vel_shift = avg_chan_ptc // 4
 
             if chan == 9:
-                avg_chan_vel += adj_vels_range   
+                vel_shift = 70
+
+            else:
+                if avg_chan_ptc < 48:
+                    vel_shift = 48
 
             for e in chan_group:
-                e[5] = max(40, min(127, avg_chan_vel + (e[4] % adj_vels_range) - (adj_vels_range // 2)))
+                e[5] = max(36, min(124, e[4] + vel_shift))
                 new_notes.append(e)
                 av_count += 1
 
@@ -687,6 +694,8 @@ def heal_midi(midi_file,
               timings_divider=1,
               max_notes_dur=-1,
               text_events_encoding='utf-8',
+              quiet_vels_adj_threshold=56,
+              flat_vels_adj_threshold=0.95,
               write_midi_to_file=True,
               return_midi_data=False,
               return_midi_score=False,
@@ -780,7 +789,8 @@ def heal_midi(midi_file,
         va_counts = {}
 
         for i, (n, o) in enumerate(fd_tracks):
-            out, va_count = adjust_notes_velocities(n, 
+            out, va_count = adjust_notes_velocities(n,
+                                                    adjustment_threshold_velocity=quiet_vels_adj_threshold,
                                                     return_adj_vels_count=True
                                                    )
             va_tracks.append([out, o])
@@ -794,7 +804,8 @@ def heal_midi(midi_file,
         fv_counts = {}
 
         for i, (n, o) in enumerate(va_tracks):
-            out, fv_count = repair_flat_dynamics(n, 
+            out, fv_count = repair_flat_dynamics(n,
+                                                 adjustment_threshold=flat_vels_adj_threshold,
                                                  return_adj_vels_count=True
                                                 )
             fv_tracks.append([out, o])
