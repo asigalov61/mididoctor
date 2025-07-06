@@ -19,6 +19,7 @@
 * Overlapping durations
 * Text events inconsistencies
 * Excessively quiet dynamics
+* Excessively flat dynamics
 
 ***
 
