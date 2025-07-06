@@ -34,7 +34,7 @@ r'''############################################################################
 
 ###################################################################################
 
-__version__ = "25.7.12"
+__version__ = "25.7.13"
 
 print('=' * 70)
 print('MIDI Doctor')
@@ -617,22 +617,22 @@ def write_midi(ticks,
             fi.write(midi_data)
             fi.close
 
-    out_data = []
+    out_data = {}
 
     if return_midi_data or return_md5_hash:
         midi_data = MIDI.score2midi(score)
 
     if return_midi_data:
-        out_data.append(midi_data)
+        out_data.update({'midi_data': midi_data})
         
     if return_stats:
-        out_data.append(MIDI.score2stats(score))
+        out_data.update({'midi_stats': MIDI.score2stats(score)})
 
     if return_score:
-        out_data.append(score)
+        out_data.update({'midi_score': score})
 
     if return_md5_hash:
-        out_data.append(hashlib.md5(mdata).hexdigest())
+        out_data.update({'midi_md5_hash': hashlib.md5(mdata).hexdigest()})
 
     return out_data
 
@@ -643,6 +643,7 @@ def heal_midi(midi_file,
               timings_divider=1,
               write_midi_to_file=True,
               return_midi_data=False,
+              return_midi_score=False,
               return_midi_hashes=False,
               return_original_midi_stats=False,
               return_healed_midi_stats=False,
@@ -762,7 +763,17 @@ def heal_midi(midi_file,
         #===================================================================================
 
         if write_midi or return_midi_data or return_midi_hashes or return_midi_stats:
-            mdata, hstats = write_midi(ticks, ut_tracks, write_midi=False, return_midi_data=True, return_stats=True)
+            midi_dict = write_midi(ticks, 
+                                   ut_tracks, 
+                                   write_midi=False, 
+                                   return_midi_data=True, 
+                                   return_stats=True, 
+                                   return_score=True
+                                  )
+
+            mdata = midi_dict['midi_data']
+            mscore = midi_dict['midi_score']
+            hstats = midi_dict['midi_stats']
 
         #===================================================================================
 
@@ -784,6 +795,11 @@ def heal_midi(midi_file,
 
         if return_midi_data:
             out_data['raw_midi_data'] = mdata
+
+        #===================================================================================
+
+        if return_midi_score:
+           out_data['healed_midi_score'] = mscore
 
         #===================================================================================
 
@@ -814,7 +830,6 @@ def heal_midi(midi_file,
             repair_stats_dict['repair_stats'] = repair_counts_dict
 
             out_data.update(repair_stats_dict)
-
 
         return out_data
 
